@@ -1,7 +1,17 @@
-// components/CTA.js
-import React from "react";
+import React, { useState } from "react";
+import EmailModal from "./EmailModal";
 
 const CTA = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = async (email) => {
+    console.log("Email submitted:", email);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    window.open(
+      "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net",
+      "_blank"
+    );
+  };
   return (
     <section className="py-20 bg-gradient-to-br from-green-500 to-green-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,25 +75,12 @@ const CTA = () => {
 
             <button
               className="mt-10 w-full max-w-md mx-auto bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-full text-lg shadow-lg transform transition duration-300 hover:scale-105 cursor-pointer"
-              onClick={() =>
-                window.open(
-                  "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net"
-                )
-              }
+              onClick={() => setShowModal(true)}
             >
               Start My 21-Day Transformation Now
             </button>
 
-            {/* <div className="mt-6 flex items-center justify-center">
-              <div className="bg-gray-200 border-2 border-dashed rounded-xl w-48 h-8" />
-              <div className="ml-4 text-sm text-gray-500">
-                Secure Payment • 60-Day Money Back Guarantee
-              </div>
-            </div> */}
-
             <div className="mt-6 flex flex-col items-center justify-center">
-              
-
               {/* Guarantee badge */}
               <div className="bg-yellow-100 border border-yellow-300 rounded-full px-4 py-2 flex items-center">
                 <svg
@@ -125,6 +122,11 @@ const CTA = () => {
           </div>
         </div>
       </div>
+      <EmailModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={handleSubmit}
+      />
     </section>
   );
 };

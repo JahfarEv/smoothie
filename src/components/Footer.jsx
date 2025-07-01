@@ -1,15 +1,19 @@
 // components/Footer.js
-import React from "react";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaEnvelope,
-  FaPhone,
-} from "react-icons/fa";
+import React, { useState } from "react";
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import EmailModal from "./EmailModal";
 
 const Footer = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = async (email) => {
+    console.log("Email submitted:", email);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    window.open(
+      "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net",
+      "_blank"
+    );
+  };
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -109,11 +113,7 @@ const Footer = () => {
             <div className="mt-6">
               <button
                 className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full font-medium cursor-pointer"
-                onClick={() =>
-                  window.open(
-                    "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net"
-                  )
-                }
+                onClick={() => setShowModal(true)}
               >
                 Get Started
               </button>
@@ -150,6 +150,11 @@ const Footer = () => {
           </p>
         </div>
       </div>
+      <EmailModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={handleSubmit}
+      />
     </footer>
   );
 };

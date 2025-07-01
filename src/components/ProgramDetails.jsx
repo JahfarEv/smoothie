@@ -1,7 +1,17 @@
-// components/ProgramDetails.js
-import React from "react";
+import React, { useState } from "react";
+import EmailModal from "./EmailModal";
 
 const ProgramDetails = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = async (email) => {
+    console.log("Email submitted:", email);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    window.open(
+      "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net",
+      "_blank"
+    );
+  };
   return (
     <section id="program" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,11 +103,7 @@ const ProgramDetails = () => {
             </p>
             <button
               className="bg-yellow-400 hover:bg-yellow-500 text-green-900 font-bold px-10 py-4 rounded-full text-lg shadow-lg transform transition duration-300 hover:scale-105 cursor-pointer"
-              onClick={() =>
-                window.open(
-                  "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net"
-                )
-              }
+              onClick={() => setShowModal(true)}
             >
               Get Instant Access Now
             </button>
@@ -105,6 +111,11 @@ const ProgramDetails = () => {
           </div>
         </div>
       </div>
+      <EmailModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={handleSubmit}
+      />
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaBlender,
   FaCalendarCheck,
@@ -9,6 +9,7 @@ import {
   FaDumbbell,
   FaHeadset,
 } from "react-icons/fa";
+import EmailModal from "./EmailModal";
 
 const Step = ({ number, icon, title, description }) => {
   return (
@@ -24,6 +25,16 @@ const Step = ({ number, icon, title, description }) => {
 };
 
 const HowItWorks = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = async (email) => {
+    console.log("Email submitted:", email);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    window.open(
+      "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net",
+      "_blank"
+    );
+  };
   return (
     <section id="how-it-works" className="py-20 bg-green-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -127,16 +138,11 @@ const HowItWorks = () => {
                 <p className="mb-6">One-time payment (normally $47)</p>
                 <button
                   className="bg-white text-green-700 font-bold py-3 px-8 rounded-full hover:bg-green-50 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                  onClick={() =>
-                    window.open(
-                      "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net"
-                    )
-                  }
+                  onClick={() => setShowModal(true)}
                 >
                   Start Today
                 </button>
                 <div className="mt-6 flex items-center justify-center">
-                 
                   <div className="mt-8 flex items-center">
                     <div className="flex -space-x-4">
                       {[1, 2, 3, 4].map((item) => (
@@ -158,6 +164,11 @@ const HowItWorks = () => {
           </div>
         </div>
       </div>
+      <EmailModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={handleSubmit}
+      />
     </section>
   );
 };

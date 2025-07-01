@@ -1,7 +1,18 @@
-// components/Hero.js
-import React from "react";
+import React, { useState } from "react";
+import EmailModal from "./EmailModal";
 
 const Hero = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = async (email) => {
+    console.log("Email submitted:", email);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    window.open(
+      "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net",
+      "_blank"
+    );
+  };
+
   return (
     <section className="relative bg-gradient-to-r from-green-400 to-green-600">
       <div className="absolute inset-0 opacity-10">
@@ -29,21 +40,13 @@ const Hero = () => {
             <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <button
                 className="bg-yellow-400 hover:bg-yellow-500 text-green-900 font-bold px-8 py-4 rounded-full text-lg shadow-lg transform transition duration-300 hover:scale-105 cursor-pointer"
-                onClick={() =>
-                  window.open(
-                    "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net"
-                  )
-                }
+                onClick={() => setShowModal(true)}
               >
                 Start Your Transformation
               </button>
               <button
                 className="bg-white bg-opacity-20 hover:bg-opacity-30 text-black font-medium px-8 py-4 rounded-full text-lg border border-white border-opacity-30 transition duration-300 cursor-pointer"
-                onClick={() =>
-                  window.open(
-                    "https://65edc9bfs953u66e1nqnt5n-wa.hop.clickbank.net"
-                  )
-                }
+                onClick={() => setShowModal(true)}
               >
                 Watch Video
               </button>
@@ -87,6 +90,12 @@ const Hero = () => {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-green-600 to-transparent"></div>
+
+      <EmailModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={handleSubmit}
+      />
     </section>
   );
 };
